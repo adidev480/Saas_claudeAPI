@@ -34,29 +34,42 @@
                                             <img src="{{asset('backend/assets/images/logo-dark.png')}}" alt="logo-dark" class="mx-auto" height="28" />
                                         </a>
                                     </div>
+
+
+                                    @if (session('status'))
+                                    <div class="alert alert-success">
+                                        {{ session('status') }}
+                                    </div>    
+                                    @endif
+
+                                    @if ($errors->any())
+
+                                    <div class="alert alert-danger mt-3">
+                                        <ul>
+                                            @foreach ($errors->all() as $error )
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                        
+                                    @endif
     
                                     <div class="pt-0">
-                                        <form method="POST" action="{{ route('admin.login') }}" class="my-4">
+                                        <form method="POST" action="{{ route('custom.verification.verify') }}" class="my-4">
                                             @csrf
 
                                             @if(session('error'))
                                                 {{ session('error') }}
                                             @endif
                                             <div class="form-group mb-3">
-                                                <label for="emailaddress" class="form-label">Email address</label>
-                                                <input class="form-control" type="email" id="email" name="email"  placeholder="Enter your email">
-                                                @error('email')
+                                                <label for="verificationCode" class="form-label">Verification Code</label>
+                                                <input class="form-control" type="text" id="verificationCode" name="code"  placeholder="Enter your Verification Code">
+                                                @error('code')
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
                 
-                                            <div class="form-group mb-3">
-                                                <label for="password" class="form-label">Password</label>
-                                                <input class="form-control" type="password" name="password"  id="password" placeholder="Enter your password">
-                                                @error('password')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
-                                            </div>
+                                           
                 
                                             <div class="form-group d-flex mb-3">
                                               
@@ -68,7 +81,7 @@
                                             <div class="form-group mb-0 row">
                                                 <div class="col-12">
                                                     <div class="d-grid">
-                                                        <button class="btn btn-primary" type="submit"> Log In </button>
+                                                        <button class="btn btn-primary" type="submit"> Verify </button>
                                                     </div>
                                                 </div>
                                             </div>
