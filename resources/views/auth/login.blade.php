@@ -1,120 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
 
-        <meta charset="utf-8" />
-        <title>Log In </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc."/>
-        <meta name="author" content="Zoyothemes"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<head>
+    <meta charset="utf-8" />
+    <title>Shared on THEMELOCK.COM - Log In | Arclon - Responsive Bootstrap 5 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
 
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="{{asset('backend/assets/images/favicon.ico')}}">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}">
 
-        <!-- App css -->
-        <link href="{{asset('backend/assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-style" />
+    <!-- Theme Config Js -->
+    <script src="{{ asset('backend/assets/js/config.js') }}"></script>
 
-        <!-- Icons -->
-        <link href="{{asset('backend/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- Vendor css -->
+    <link href="{{ asset('backend/assets/css/vendor.min.css') }}" rel="stylesheet" type="text/css" />
 
-    </head>
+    <!-- App css -->
+    <link href="{{ asset('backend/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
 
-    <body class="bg-white">
-        <!-- Begin page -->
-        <div class="account-page">
-            <div class="container-fluid p-0">
-                <div class="row align-items-center g-0">
-                    <div class="col-xl-5">
-                        <div class="row">
-                            <div class="col-md-7 mx-auto">
-                                <div class="mb-0 border-0 p-md-5 p-lg-0 p-4">
-                                    <div class="mb-4 p-0">
-                                        <a href="index.html" class="auth-logo">
-                                            <img src="{{asset('backend/assets/images/logo-dark.png')}}" alt="logo-dark" class="mx-auto" height="28" />
-                                        </a>
-                                    </div>
-    
-                                    <div class="pt-0">
-                                        <form method="POST" action="{{ route('admin.login') }}" class="my-4">
-                                            @csrf
+    <!-- Icons css -->
+    <link href="{{ asset('backend/assets/css/icons.min.css/') }}" rel="stylesheet" type="text/css" />
 
-                                            @if(session('error'))
-                                                {{ session('error') }}
-                                            @endif
-                                            <div class="form-group mb-3">
-                                                <label for="emailaddress" class="form-label">Email address</label>
-                                                <input class="form-control" type="email" id="email" name="email"  placeholder="Enter your email">
-                                                @error('email')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+</head>
+
+<body>
+
+    <div class="auth-bg d-flex min-vh-100">
+        <div class="row g-0 justify-content-center w-100 m-xxl-5 px-xxl-4 m-3">
+            <div class="col-xxl-3 col-lg-5 col-md-6">
+                <a href="index.html" class="auth-brand d-flex justify-content-center mb-2">
+                    <img src="{{ asset('backend/assets/images/logo-dark.png') }}" alt="dark logo" height="26" class="logo-dark">
+                    <img src="{{ asset('backend/assets/images/logo.png') }}" alt="logo light" height="26" class="logo-light">
+                </a>
+
+                <p class="fw-semibold mb-4 text-center text-muted fs-15">Admin Panel Design by Coderthemes</p>
+
+                <div class="card overflow-hidden text-center p-xxl-4 p-3 mb-0">
+
+                    <h4 class="fw-semibold mb-3 fs-18">Log in to your account</h4>
+                       <form method="POST" action="{{ route('admin.login') }}" class="text-start mb-3">
+                        @csrf
+
+                        @if(session('error'))
+                             {{ session('error') }}
+                        @endif
+                    
+                        <div class="mb-3">
+                            <label class="form-label" for="example-email">Email</label>
+                            <input type="email" id="example-email" name="email" class="form-control"
+                                placeholder="Enter your email">
+                            @error('email')
                                                     <small class="text-danger">{{ $message }}</small>
-                                                @enderror
-                                            </div>
-                
-                                            <div class="form-group mb-3">
-                                                <label for="password" class="form-label">Password</label>
-                                                <input class="form-control" type="password" name="password"  id="password" placeholder="Enter your password">
-                                                @error('password')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
-                                            </div>
-                
-                                            <div class="form-group d-flex mb-3">
-                                              
-                                                <div class="col-sm-6 text-end">
-                                                    <a class='text-muted fs-14' href='{{ route('password.request') }}'>Forgot password?</a>                             
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group mb-0 row">
-                                                <div class="col-12">
-                                                    <div class="d-grid">
-                                                        <button class="btn btn-primary" type="submit"> Log In </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-    
-                                        <div class="saprator my-4"><span>or sign in with</span></div>
-    
-                                        <div class="text-center text-muted mb-4">
-                                            <p class="mb-0">Don't have an account ?<a class='text-primary ms-2 fw-medium' href='{{ route('register') }}'>Sing up</a></p>
-                                        </div>
-    
-                               
+                                                @enderror    
+                        </div>
 
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="example-password">Password</label>
+                            <input type="password" name="password" id="example-password" class="form-control"
+                                placeholder="Enter your password">
+
+                            @error('password')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror    
                         </div>
-                    </div>
-    
-                    <div class="col-xl-7">
-                        <div class="account-page-bg p-md-5 p-4">
-                            <div class="text-center">
-                                <h3 class="text-dark mb-3 pera-title">Quick, Effective, and Productive With Tapeli Admin Dashboard</h3>
-                                <div class="auth-image">
-                                    <img src="{{asset('backend//assets/images/authentication.svg')}}" class="mx-auto img-fluid"  alt="images">
-                                </div>
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="checkbox-signin">
+                                <label class="form-check-label" for="checkbox-signin">Remember me</label>
                             </div>
+
+                            <a href='{{ route('password.request') }}' class="text-muted border-bottom border-dashed">Forget
+                                Password</a>
                         </div>
-                    </div>
+
+                        <div class="d-grid">
+                            <button class="btn btn-primary fw-semibold" type="submit">Login</button>
+                        </div>
+                    </form>
+
+                    <p class="text-muted fs-14 mb-0">Don't have an account?
+                        <a href='{{ route('register') }}' class="fw-semibold text-danger ms-1">Sign Up !</a>
+                    </p>
+
                 </div>
+                <p class="mt-4 text-center mb-0">
+                    <script>document.write(new Date().getFullYear())</script> © Arclon - By <span
+                        class="fw-bold text-decoration-underline text-uppercase text-reset fs-12">Coderthemes</span>
+                </p>
             </div>
         </div>
-        
-        <!-- END wrapper -->
+    </div>
 
-        <!-- Vendor -->
-        <script src="{{asset('backend/assets/libs/jquery/jquery.min.js')}}"></script>
-        <script src="{{asset('backend/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-        <script src="{{asset('backend/assets/libs/simplebar/simplebar.min.js')}}"></script>
-        <script src="{{asset('backend/assets/libs/node-waves/waves.min.js')}}"></script>
-        <script src="{{asset('backend/assets/libs/waypoints/lib/jquery.waypoints.min.js')}}"></script>
-        <script src="{{asset('backend/assets/libs/jquery.counterup/jquery.counterup.min.js')}}"></script>
-        <script src="{{asset('backend/assets/libs/feather-icons/feather.min.js')}}"></script>
+    <!-- Vendor js -->
+    <script src="{{ asset('backend/assets/js/vendor.min.js') }}"></script>
 
-        <!-- App js-->
-        <script src="{{asset('backend/assets/js/app.js')}}"></script>
-        
-    </body>
+    <!-- App js -->
+    <script src="{{ asset('backend/assets/js/app.js') }}"></script>
+
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+ @if(Session::has('message'))
+ var type = "{{ Session::get('alert-type','info') }}"
+ switch(type){
+    case 'info':
+    toastr.info(" {{ Session::get('message') }} ");
+    break;
+
+    case 'success':
+    toastr.success(" {{ Session::get('message') }} ");
+    break;
+
+    case 'warning':
+    toastr.warning(" {{ Session::get('message') }} ");
+    break;
+
+    case 'error':
+    toastr.error(" {{ Session::get('message') }} ");
+    break; 
+ }
+ @endif 
+</script>
+
+
+</body>
+
 </html>

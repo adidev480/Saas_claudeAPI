@@ -1,8 +1,15 @@
                 <footer class="footer">
-                    <div class="container-fluid">
+                    <div class="page-container">
                         <div class="row">
-                            <div class="col fs-13 text-muted text-center">
-                                &copy; <script>document.write(new Date().getFullYear())</script> - Made with <span class="mdi mdi-heart text-danger"></span> by <a href="#!" class="text-reset fw-semibold">Zoyothemes</a> 
+                            <div class="col-md-6 text-center text-md-start">
+                                <script>document.write(new Date().getFullYear())</script> © Arclon - By <span class="fw-bold text-decoration-underline text-uppercase text-reset fs-12">Coderthemes</span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-md-end footer-links d-none d-md-block">
+                                    <a href="javascript: void(0);">About</a>
+                                    <a href="javascript: void(0);">Support</a>
+                                    <a href="javascript: void(0);">Contact Us</a>
+                                </div>
                             </div>
                         </div>
                     </div>

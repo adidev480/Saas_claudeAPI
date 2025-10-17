@@ -3,14 +3,35 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsUser;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+
+///Only for User
+Route::middleware(['auth',IsUser::class])->group(function(){
+       Route::get('/dashboard', function(){
+       return view('dashboard');
+    })->name('dashboard');
+});
+
+///Only for Admin
+Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function(){
+       Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
+       Route::get('/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+       Route::get('/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
+       Route::post('/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
+       Route::get('/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
+       Route::post('/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
+
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,7 +42,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+
 Route::post('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
 Route::get('/verify', [AdminController::class, 'ShowVerification'])->name('custom.verification.form');
 Route::post('/verify', [AdminController::class, 'VerificationVerify'])->name('custom.verification.verify');

@@ -2,51 +2,61 @@
 <html lang="en">
 
     <head>
-
         <meta charset="utf-8" />
         <title>Admin Dashboard </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc."/>
-        <meta name="author" content="Zoyothemes"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+    
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{  asset('backend/assets/images/favicon.ico') }}">
+        <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}">
+
+        <!-- Theme Config Js -->
+        <script src="{{ asset('backend/assets/js/config.js') }}"></script>
+
+        <!-- Vendor css -->
+        <link href="{{ asset('backend/assets/css/vendor.min.css') }}" rel="stylesheet" type="text/css" />
 
         <!-- App css -->
-        <link href="{{  asset('backend/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
+        <link href="{{ asset('backend/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
 
-        <!-- Icons -->
-        <link href="{{  asset('backend/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- Icons css -->
+        <link href="{{ asset('backend/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+
 
     </head>
 
-    <!-- body start -->
-    <body data-menu-color="light" data-sidebar="default">
-
+    <body>
         <!-- Begin page -->
-        <div id="app-layout">
+        <div class="wrapper">
 
+            <!-- Menu -->
+            <!-- Sidenav Menu Start -->
+            @include('admin.body.sidebar')
+            <!-- Sidenav Menu End -->
 
+            
             <!-- Topbar Start -->
             @include('admin.body.header')
-            <!-- end Topbar -->
+            <!-- Topbar End -->
 
-            <!-- Left Sidebar Start -->
-            @include('admin.body.sidebar')
-            <!-- Left Sidebar End -->
-
-            <!-- ============================================================== -->
+            <!-- Search Modal -->  
+           
             <!-- Start Page Content here -->
             <!-- ============================================================== -->
-
-            <div class="content-page">
-                @yield('content')
+            <div class="page-content">
+                <div class="page-container">
+            
+            @yield('content')
+  
+                </div> <!-- container -->
 
                 <!-- Footer Start -->
-                @include('admin.body.footer')
+           @include('admin.body.footer')    
                 <!-- end Footer -->
-                
+
             </div>
             <!-- ============================================================== -->
             <!-- End Page content -->
@@ -55,26 +65,48 @@
         </div>
         <!-- END wrapper -->
 
-        <!-- Vendor -->
-        <script src="{{  asset('backend/assets/libs/jquery/jquery.min.js') }}"></script>
-        <script src="{{  asset('backend/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{  asset('backend/assets/libs/simplebar/simplebar.min.js') }}"></script>
-        <script src="{{  asset('backend/assets/libs/node-waves/waves.min.js') }}"></script>
-        <script src="{{  asset('backend/assets/libs/waypoints/lib/jquery.waypoints.min.js') }}"></script>
-        <script src="{{  asset('backend/assets/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
-        <script src="{{  asset('backend/assets/libs/feather-icons/feather.min.js') }}"></script>
+        <!-- Theme Settings -->
+        
+        <!-- Vendor js -->
+        <script src="{{ asset('backend/assets/js/vendor.min.js') }}"></script>
 
-        <!-- Apexcharts JS -->
-        <script src="{{  asset('backend/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+        <!-- App js -->
+        <script src="{{ asset('backend/assets/js/app.js') }}"></script>
 
-        <!-- for basic area chart -->
-        <script src="https://apexcharts.com/samples/assets/stock-prices.js"></script>
+        <!-- Apex Chart js -->
+        <script src="{{ asset('backend/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
 
-        <!-- Widgets Init Js -->
-        <script src="{{  asset('backend/assets/js/pages/analytics-dashboard.init.js') }}"></script>
+        <!-- Projects Analytics Dashboard App js -->
+        <script src="{{ asset('backend/assets/js/pages/dashboard.js') }}"></script>
 
-        <!-- App js-->
-        <script src="{{  asset('backend/assets/js/app.js') }}"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+        <script>
+        @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type','info') }}"
+        switch(type){
+            case 'info':
+            toastr.info(" {{ Session::get('message') }} ");
+            break;
+
+            case 'success':
+            toastr.success(" {{ Session::get('message') }} ");
+            break;
+
+            case 'warning':
+            toastr.warning(" {{ Session::get('message') }} ");
+            break;
+
+            case 'error':
+            toastr.error(" {{ Session::get('message') }} ");
+            break; 
+        }
+        @endif 
+        </script>
+
+
+
 
     </body>
+
 </html>
