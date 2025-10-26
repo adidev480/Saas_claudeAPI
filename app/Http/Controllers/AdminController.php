@@ -33,10 +33,28 @@ class AdminController extends Controller
             $verificationCode = random_int(10000,99999);
             session(['verification_code'=> $verificationCode, 'user_id'=>$user->id ]);
 
-            Mail::to($user->email)->send(new VerificationCodeMail($verificationCode));
-            Auth::logout();
+            // Mail::to($user->email)->send(new VerificationCodeMail($verificationCode));
+            // Auth::logout();
 
-            return redirect()->route('custom.verification.form')->with('status','verification code send to your mail');
+            // return redirect()->route('custom.verification.form')->with('status','verification code send to your mail');
+
+            // ---- //
+
+            $user = User::where('id',session('user_id'))->first();
+            $role = $user->role;
+
+
+            Auth::loginUsingId(session('user_id'));
+
+            
+            session()->forget(['verfication_code','user_id']);
+            
+            if($role === 'admin'){
+                return redirect()->intended(route('admin.dashboard'));
+            }
+
+            return redirect()->intended(route('dashboard'));
+            // ---- //
 
 
         }
@@ -89,6 +107,7 @@ class AdminController extends Controller
     }
 
     public function AdminProfileStore(Request $request){
+
         $id = Auth::user()->id;
         $data = User::find($id);
 
@@ -138,6 +157,7 @@ class AdminController extends Controller
     }
 
     public function AdminPasswordUpdate(Request $request){
+        
         $user = Auth::user();
         $request->validate([
             'old_password' => 'required',

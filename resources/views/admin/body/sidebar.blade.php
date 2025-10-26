@@ -40,6 +40,35 @@
                         </li>
 
                         <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#plan" aria-expanded="false" aria-controls="plan" class="side-nav-link">
+                                <span class="menu-icon"><i class="ti ti-invoice"></i></span>
+                                <span class="menu-text"> Plan Manage</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="plan">
+                                <ul class="sub-menu">
+                                    <li class="side-nav-item">
+                                        <a href="{{ route('all.plans') }}" class="side-nav-link">
+                                            <span class="menu-text">All Plan</span>
+                                        </a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="{{ route('add.plans') }}" class="side-nav-link">
+                                            <span class="menu-text">View Invoice</span>
+                                        </a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="apps-invoice-create.html" class="side-nav-link">
+                                            <span class="menu-text">Create Invoice</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+
+                        <li class="side-nav-item">
                             <a href="apps-chat.html" class="side-nav-link">
                                 <span class="menu-icon"><i class="ti ti-message"></i></span>
                                 <span class="menu-text"> Chat </span>
@@ -60,32 +89,7 @@
                             </a>
                         </li>
 
-                        <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#sidebarInvoice" aria-expanded="false" aria-controls="sidebarInvoice" class="side-nav-link">
-                                <span class="menu-icon"><i class="ti ti-invoice"></i></span>
-                                <span class="menu-text"> Invoice</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <div class="collapse" id="sidebarInvoice">
-                                <ul class="sub-menu">
-                                    <li class="side-nav-item">
-                                        <a href="apps-invoices.html" class="side-nav-link">
-                                            <span class="menu-text">Invoices</span>
-                                        </a>
-                                    </li>
-                                    <li class="side-nav-item">
-                                        <a href="apps-invoice-details.html" class="side-nav-link">
-                                            <span class="menu-text">View Invoice</span>
-                                        </a>
-                                    </li>
-                                    <li class="side-nav-item">
-                                        <a href="apps-invoice-create.html" class="side-nav-link">
-                                            <span class="menu-text">Create Invoice</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+
 
                         <li class="side-nav-title mt-2">
                             Custom

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,17 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function(){
        Route::post('/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
        Route::get('/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
        Route::post('/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
+
+       Route::controller(PlanController::class)->group(function(){
+        Route::get('/all/plans', 'AllPlans')->name('all.plans');
+        Route::get('/add/plans', 'AddPlans')->name('add.plans');
+        Route::post('/store/plans', 'StorePlans')->name('store.plans');
+        Route::get('/edit/plans/{id}', 'EditPlans')->name('edit.plans');
+        Route::post('/update/plan', 'UpdatePlan')->name('update.plans');
+        Route::get('/delete/plan/{id}', 'DeletePlan')->name('delete.plan');
+
+
+       });
 
 });
 
