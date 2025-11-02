@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Plan;
+use App\Models\Project;
 
 class User extends Authenticatable
 {
@@ -28,6 +30,14 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function plan(){
+        return $this->belongsTo(Plan::class, 'user_id');
+    }
+
+    public function projects(){
+        return $this->hasMany(Project::class);
+    }
 
     /**
      * Get the attributes that should be cast.

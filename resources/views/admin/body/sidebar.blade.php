@@ -54,14 +54,33 @@
                                     </li>
                                     <li class="side-nav-item">
                                         <a href="{{ route('add.plans') }}" class="side-nav-link">
-                                            <span class="menu-text">View Invoice</span>
+                                            <span class="menu-text">Add Plans</span>
+                                        </a>
+                                    </li>
+                                 
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#project" aria-expanded="false" aria-controls="project" class="side-nav-link">
+                                <span class="menu-icon"><i class="ti ti-invoice"></i></span>
+                                <span class="menu-text"> Project Manage</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="project">
+                                <ul class="sub-menu">
+                                    <li class="side-nav-item">
+                                        <a href="{{ route('all.projects') }}" class="side-nav-link">
+                                            <span class="menu-text">All Project</span>
                                         </a>
                                     </li>
                                     <li class="side-nav-item">
-                                        <a href="apps-invoice-create.html" class="side-nav-link">
-                                            <span class="menu-text">Create Invoice</span>
+                                        <a href="{{ route('add.plans') }}" class="side-nav-link">
+                                            <span class="menu-text">Add Plans</span>
                                         </a>
                                     </li>
+                                 
                                 </ul>
                             </div>
                         </li>
