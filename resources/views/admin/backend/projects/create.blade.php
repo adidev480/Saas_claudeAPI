@@ -11,7 +11,7 @@
 
                 </div>
 
-                <form action="" class="card-body" method="POST" id="project-form">
+                <form action="{{ route('projects.store') }}" class="card-body" method="POST" id="project-form">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label fw-semibold text-white">

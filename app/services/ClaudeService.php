@@ -76,7 +76,7 @@ class ClaudeService{
 
 private function buildUserPrompt(string $prompt, array $context = []): string{
 
-    $userPrompt = "Create or update a website based on this request: {$prompt\n\n}";
+    $userPrompt = "Create or update a website based on this request: {$prompt}\n\n";
 
     if(!empty($context['html_content'])){
         $userPrompt .= "Current HTML:\n{$context['html_content']}\n\n";
@@ -90,6 +90,9 @@ private function buildUserPrompt(string $prompt, array $context = []): string{
       $userPrompt .= "Current Javascript:\n{$context['js_content']}";
       $userPrompt .= "Generate the complete website code in JSON format. If updating, integrate the existing CSS and JavaScript where applicable. Ensure the Bootstrap CSS CDN is included in the HTML head. The HTML must be a valid, self-contained document with NO extra text after the </body> tag. For any placeholder images, use https://placehold.co/ with a default size of 300x200 (e.g., https://placehold.co/300x200) unless a specific size is specified in the prompt.";
     }
+
+    $userPrompt .= "Generate the complete website code in JSON format. If updating, integrate the existing CSS and JavaScript where applicable. Ensure the Bootstrap CSS CDN is included in the HTML head. The HTML must be a valid, self-contained document with NO extra text after the </body> tag. For any placeholder images, use https://placehold.co/ with a default size of 300x200 (e.g., https://placehold.co/300x200) unless a specific size is specified in the prompt.";
+    return $userPrompt;
 
 }
 
@@ -137,7 +140,7 @@ private function parseClaudeResponse(string $response, array $context): array {
 private function cleanHtml(string $html) : string{
     /// Remove everything after the body
     $bodyEndPos = strripos($html, '</body>');
-    
+
     if($bodyEndPos !==false){
         return substr($html, 0, $bodyEndPos + 7);
     }
