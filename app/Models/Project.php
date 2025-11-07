@@ -1,29 +1,32 @@
 <?php
-    namespace App\Models;
 
-    use Illuminate\Database\Eloquent\Model;
-    use App\Models\User;
+namespace App\Models;
 
-    class Project extends Model
-    {
-        protected $guarded = [];
+use Illuminate\Database\Eloquent\Model;
 
-        public function user(): BelongsTo
-        {
-            return $this->belongsTo(User::class);
-        }
+class Project extends Model
+{
+     protected $guarded = []; 
 
-        protected $casts = [
-            'chat_history' => 'array',
-        ];
+     public function user(): BelongsTo
+     {
+        return $this->belongsTo(User::class);
+     }
 
-        public function addChatMessage($role,$content){
-            $chatHistory = $this->chat_history ?? [];
-            $chatHistory[] = [
-                'role' => $role,
-                'content' => $content,
-                'timestamp' => now()->toIso8601String(),
-            ];
-            $this->update(['chat_history' => $chatHistory]);
-        }
-    }
+     protected $casts = [
+         'chat_history' => 'array',
+     ];
+
+     public function addChatMessage($role, $content){
+      $chatHistory = $this->chat_history ?? [];
+      $chatHistory[] = [
+         'role' => $role,
+         'content' => $content,
+         'timestamp' => now()->toIso8601String(),
+      ];
+      $this->update(['chat_history' => $chatHistory]);
+     }
+
+
+
+}

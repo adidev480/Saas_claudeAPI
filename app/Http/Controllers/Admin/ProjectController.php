@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Project;
 use App\Services\ClaudeService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Log;
@@ -17,17 +18,21 @@ class ProjectController extends Controller
     private ClaudeService $claudeService;
 
     public function __construct(ClaudeService $claudeService){
-        $this->claudeService  = $claudeService;
+        $this->claudeService = $claudeService;
     }
+    //End Method 
+
 
     public function AllProjects(){
         $projects = Auth::user()->projects()->latest()->get();
-        return view('admin.backend.projects.index', compact('projects'));
+        return view('admin.backend.projects.index',compact('projects'));
     }
+    // End Method 
 
     public function CreateProject(){
         return view('admin.backend.projects.create');
     }
+      // End Method 
 
     public function StoreProject(Request $request){
 
@@ -37,51 +42,53 @@ class ProjectController extends Controller
             'api_prompt' => 'nullable|string',
         ]);
 
+        // Create the project 
         $project = Auth::user()->projects()->create([
             'name' => $request->name,
             'description' => $request->description
         ]);
 
-        if($request->api_prompt){
-            try{
+      // If there have any API Prompt is provided then it will be generate the website..
 
-                ///If there are any API prompt is provided then it be generate the website 
+    if ($request->api_prompt) {
+       try {
 
-                $context = [
-                    'html_content' => $project->html_content,
-                    'css_content' => $project->css_content,
-                    'js_content' => $project->js_content,
-                ];
+        $context = [
+            'html_content' => $project->html_content,
+            'css_content' => $project->css_content,
+            'js_content' => $project->js_content,
+        ];
 
-                $generated = $this->claudeService->generateWebsite($request->api_prompt, $context);
+        $generated = $this->claudeService->generateWebsite($request->api_prompt, $context);
 
-                $project->update([
-                    'html_content' => $generated['html'],
-                    'css_content' => $generated['css'],
-                    'js_content' => $generated['js'],
-                    
 
-                ]);
+        $project->update([
+            'html_content' => $generated['html'],
+            'css_content' => $generated['css'],
+            'js_content' => $generated['js'],
+        ]);
 
-                ///Add to chat history
+        // Add to check history 
 
-                $project->addChatMessage('user', $request->pi_prompt);
-                $project->addChatMessage('assistant', 'Initial website generated successfully!');
+        $project->addChatMessage('user',$request->api_prompt);
+        $project->addChatMessage('assistant', 'Initial website generated successfully!');        
+       } catch (\Exception $e) {
+         Log::error('Failed to generate website' . $e->getMessage(), ['project_id' => $project->id ]);
+       }
+    }
 
-            }catch(\Exception $e){
-
-                Log::error('Failed to generate website' . $e->getMessage(), ['project_id']);
-
-            }
-        }
-
-        return redirect()->route('projects.edit', $project);
-        
+    return redirect()->route('projects.edit',$project);
 
     }
+    // End Method 
 
     public function EditProject(Project $project){
+
         $this->authorize('update',$project);
         return view('admin.backend.projects.edit',compact('project'));
+
     }
-}
+    // End Method 
+
+
+} 

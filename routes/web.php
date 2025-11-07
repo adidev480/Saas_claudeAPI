@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\PlanController;
+use App\Http\Controllers\Admin\ProjectApiController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
@@ -56,6 +57,10 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function(){
 
 
 });
+
+
+Route::post('api/projects/{project}/chat',[ProjectApiController::class, 'Chat'])->name('api.projects.chat');
+Route::get('api/projects/{project}/preview',[ProjectApiController::class, 'getPreview'])->name('api.projects.preview');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
