@@ -61,6 +61,10 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function(){
 
 Route::post('api/projects/{project}/chat',[ProjectApiController::class, 'Chat'])->name('api.projects.chat');
 Route::get('api/projects/{project}/preview',[ProjectApiController::class, 'getPreview'])->name('api.projects.preview');
+Route::get('projects/{project}/preview',[ProjectController::class, 'ViewPreview'])->name('projects.preview');
+Route::get('projects/{project}/export',[ProjectController::class, 'Export'])->name('projects.export');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

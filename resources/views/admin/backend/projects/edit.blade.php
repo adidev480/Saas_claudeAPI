@@ -12,7 +12,7 @@
             <div class="col-auto">
                 <div class="d-flex gap-2">
                     <button onclick="previewProject()" class="btn btn-primary">Preview</button>
-                    <a href="" class="btn btn-success">Export</a>
+                    <a href="{{ route('projects.export', $project) }}" class="btn btn-success">Export</a>
                 </div> 
             </div> 
             </div> 

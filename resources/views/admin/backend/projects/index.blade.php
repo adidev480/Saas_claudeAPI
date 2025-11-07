@@ -23,7 +23,7 @@
                             <p class="card-text text-muted mb-3"> Update at {{ $project->updated_at->diffForHumans() }} </p>
                             
                             <div class="d-flex gap-2">
-                                <a href="" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="{{ route('projects.edit', $project) }}" class="btn btn-primary btn-sm">Edit</a>
                             </div>
                         </div>
 
