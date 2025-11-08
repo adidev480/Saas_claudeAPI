@@ -32,11 +32,15 @@ class User extends Authenticatable
     ];
 
     public function plan(){
-        return $this->belongsTo(Plan::class, 'user_id');
+        return $this->belongsTo(Plan::class, 'plan_id');
     }
 
     public function projects(){
         return $this->hasMany(Project::class);
+    }
+
+    public function isAdmin(){
+        return $this->role === 'admin';
     }
 
     /**

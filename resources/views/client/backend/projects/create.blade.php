@@ -1,5 +1,5 @@
-@extends('admin.admin_master')
-@section('content')
+@extends('client.master')
+@section('client')
 
 <div class="container-fluid py-4">
     <div class="row justify-content-center">
@@ -11,7 +11,7 @@
                     <p class="mb-0 text-white-50">Start building your AI-Generated Website</p> 
                 </div>
 
-    <form action="{{ route('projects.store') }}" class="card-body" method="POST" id="project-form">
+    <form action="{{ route('user.projects.store') }}" class="card-body" method="POST" id="project-form">
         @csrf
 
      <div class="mb-3">
@@ -110,7 +110,7 @@
     <input type="hidden" name="api_prompt" id="api_prompt" value="">
 
     <div class="d-flex justify-content-between align-items-center pt-3 border-top">
-        <a href="{{ route('all.projects') }}" class="text-decoration-none text-secondary fw-medium"> Back to Projects</a>
+        <a href="{{ route('user.all.projects') }}" class="text-decoration-none text-secondary fw-medium"> Back to Projects</a>
         <div>
             <button type="button" onclick="window.history.back()" class="btn btn-outline-secondary me-2">Cancel</button>
             <button type="submit" class="btn btn-primary">Create Project</button>
@@ -143,7 +143,7 @@
         <h6>{{ $project->name }}</h6>
         <small class="text-muted">{{ $project->updated_at->diffForHumans() }}</small>
         </div>
-        <a href="{{ route('projects.edit', $project) }}" class="text-primary fw-medium text-decoration-none">Continue</a> 
+        <a href="{{ route('projects.edit',$project) }}" class="text-primary fw-medium text-decoration-none">Continue</a> 
         @endforeach 
         </div> 
       </div> 

@@ -30,6 +30,15 @@ class ProjectApiController extends Controller
             'message' => 'required|string'
         ]);
 
+        $user = Auth::user();
+
+    if (!$user->isAdmin()) {
+       $tokenCost = 20;
+       if ($user->token_used + $tokenCost > $user->plan->token_limit) {
+              return response()->json(['success' => false, 'message' => 'Insufficient tokens. Upgrate your plan.'], 403);
+            }
+    }
+
     try {
        $context = [
             'html_content' => $project->html_content,
@@ -45,6 +54,9 @@ class ProjectApiController extends Controller
             'js_content' => $generated['js'],
         ]);
 
+        if (!$user->isAdmin()) {
+            $user->increment('token_used', $tokenCost);
+        }
         // Add to check history 
 
         $project->addChatMessage('user',$request->message);
@@ -67,6 +79,7 @@ class ProjectApiController extends Controller
     }
     //End Method 
 
+  
 public function getPreview(Project $project){
     Log::info('Preview data request', ['project_id' => $project->id]);
  

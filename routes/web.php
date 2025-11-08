@@ -5,9 +5,11 @@ use App\Http\Controllers\Admin\ProjectApiController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUser;
+use App\Http\Controllers\User\UserProjectController;
 
 
 Route::get('/', function () {
@@ -19,11 +21,46 @@ Route::get('/', function () {
 
 
 ///Only for User
+////// Only for User Route 
 Route::middleware(['auth',IsUser::class])->group(function(){
-       Route::get('/dashboard', function(){
-       return view('dashboard');
+
+    Route::get('/dashboard', function () {
+        return view('client.index');
     })->name('dashboard');
+
+     Route::get('/user/logout', [UserController::class, 'UserLogout'])->name('user.logout');
+     Route::get('/user/profile', [UserController::class, 'UserProfile'])->name('user.profile');
+     Route::post('/user/profile/store', [UserController::class, 'UserProfileStore'])->name('user.profile.store');
+
+     Route::get('/user/change/password', [UserController::class, 'UserChangePassword'])->name('user.change.password');
+     Route::post('/user/password/update', [UserController::class, 'UserPasswordUpdate'])->name('user.password.update');
+
+
+ Route::controller(UserController::class)->group(function(){
+    Route::get('/plans/upgrade', 'PlanUpgrade')->name('plans.upgrade'); 
+        Route::get('/plans/subscribe/{planId}', 'PlanSubscribe')->name('plans.subscribe');
+
+    Route::get('/plans/payment/{transactionId}', 'showPaymentForm')->name('plans.payment'); 
+    
+    Route::post('/plans/payment/{transactionId}', 'ProcessPayment')->name('plans.processPayment'); 
+
+  });
+
+
+    Route::controller(UserProjectController::class)->group(function(){
+    Route::get('/user/all/projects', 'UserAllProjects')->name('user.all.projects'); 
+    Route::get('/user/projects/create', 'UserProjectsCreate')->name('user.projects.create'); 
+    Route::post('/user/projects/store', 'UserProjectsStore')->name('user.projects.store');
+
+    Route::get('/user/projects/edit/{project}', 'UserProjectsEdit')->name('user.projects.edit');
+
+  });
+
+
+
 });
+
+////// End Only for User Route 
 
 ///Only for Admin
 Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function(){
