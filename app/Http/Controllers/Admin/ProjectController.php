@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Project;
+use App\Models\Transaction;
 use App\Services\ClaudeService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Log;
@@ -121,6 +122,37 @@ class ProjectController extends Controller
             ->header('Content-Type','text/html')
             ->header('Content-Disposition','attachment; filename="' . $project->name . '.html"'); 
 
+    }
+
+    public function AllOrders(){
+        $plan = Transaction::with(['user', 'plan'])->get();
+        return view('admin.backend.transaction.all_transaction',compact('plan'));
+    }
+    // End Method 
+
+    public function UpdateTransaction(Request $request, $id){
+        $transaction = Transaction::findOrFail($id);
+        $newStatus = $request->input('status');
+
+        if (!in_array($newStatus, ['pending','approved','rejected'])) {
+            return redirect()->back()->with('error','Invalid status selected');
+        }
+
+        $transaction->status = $newStatus;
+        $transaction->save();
+
+        if ($newStatus === 'approved') {
+           $user = $transaction->user;
+           $user->plan_id = $transaction->plan_id;
+           $user->token_used = 0;
+           $user->save();
+        }
+
+         $notification = array(
+            'message' => 'Transaction updates successfully',
+            'alert-type' => 'success'
+        ); 
+        return redirect()->route('all.orders')->with($notification);  
     }
 
 

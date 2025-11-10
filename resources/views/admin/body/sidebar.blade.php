@@ -62,28 +62,26 @@
                             </div>
                         </li>
 
+            <li class="side-nav-item">
+                <a href="{{ route('all.projects') }}" class="side-nav-link">
+                    <span class="menu-icon"><i class="ti ti-message"></i></span>
+                    <span class="menu-text"> Projects </span>
+                </a>
+            </li>
+
+            <li class="side-nav-item">
+                <a href="{{ route('all.orders') }}" class="side-nav-link">
+                    <span class="menu-icon"><i class="ti ti-calendar"></i></span>
+                    <span class="menu-text"> All Orders </span>
+                </a>
+            </li>
+
                         <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#project" aria-expanded="false" aria-controls="project" class="side-nav-link">
-                                <span class="menu-icon"><i class="ti ti-invoice"></i></span>
-                                <span class="menu-text"> Project Manage</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <div class="collapse" id="project">
-                                <ul class="sub-menu">
-                                    <li class="side-nav-item">
-                                        <a href="{{ route('all.projects') }}" class="side-nav-link">
-                                            <span class="menu-text">All Project</span>
-                                        </a>
-                                    </li>
-                                    <li class="side-nav-item">
-                                        <a href="{{ route('add.plans') }}" class="side-nav-link">
-                                            <span class="menu-text">Add Plans</span>
-                                        </a>
-                                    </li>
-                                 
-                                </ul>
-                            </div>
-                        </li>
+                <a href="{{ route('all.blog') }}" class="side-nav-link">
+                    <span class="menu-icon"><i class="ti ti-mailbox"></i></span>
+                    <span class="menu-text"> Blog </span>
+                </a>
+            </li>
 
 
 

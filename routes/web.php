@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUser;
 use App\Http\Controllers\User\UserProjectController;
+use App\Http\Controllers\Admin\BlogController;
 
 
 Route::get('/', function () {
@@ -91,6 +92,19 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function(){
 
         });
 
+        Route::controller(ProjectController::class)->group(function(){
+            Route::get('/all/orders', 'AllOrders')->name('all.orders');
+            Route::patch('/update/transaction/{id}', 'UpdateTransaction')->name('update.transaction');
+        
+
+        });
+
+          Route::controller(BlogController::class)->group(function(){
+            Route::get('/all/blog', 'AllBlog')->name('all.blog');
+            Route::get('/add/blog', 'AddBlog')->name('add.blog');
+
+        });
+
 
 
 });
@@ -100,6 +114,14 @@ Route::post('api/projects/{project}/chat',[ProjectApiController::class, 'Chat'])
 Route::get('api/projects/{project}/preview',[ProjectApiController::class, 'getPreview'])->name('api.projects.preview');
 Route::get('projects/{project}/preview',[ProjectController::class, 'ViewPreview'])->name('projects.preview');
 Route::get('projects/{project}/export',[ProjectController::class, 'Export'])->name('projects.export');
+ //////////// BLOG ALL ROUTE 
+Route::get('/generate-blog/{title}', [BlogController::class, 'GenerateBlog'])->name('generate.blog');
+Route::post('/save-blog', [BlogController::class, 'SaveBlog'])->name('save.blog');
+Route::get('/edit/blog/{id}', [BlogController::class, 'EditBlog'])->name('edit.blog');
+
+Route::post('/update/blog', [BlogController::class, 'UpdateBlog'])->name('update.blog');
+Route::get('/delete/blog/{id}', [BlogController::class, 'DeleteBlog'])->name('delete.blog');
+
 
 
 
