@@ -12,11 +12,12 @@ use App\Http\Middleware\IsUser;
 use App\Http\Controllers\User\UserProjectController;
 use App\Http\Controllers\Admin\BlogController;
 
+use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\ReviewController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home.index');
 });
-
 
 
 
@@ -106,6 +107,22 @@ Route::prefix('admin')->middleware(['auth',IsAdmin::class])->group(function(){
         });
 
 
+    Route::controller(HomeController::class)->group(function(){
+        Route::get('/get/slider', 'GetSlider')->name('get.slider'); 
+        Route::post('/update/slider', 'UpdateSlider')->name('update.slider'); 
+
+    });
+
+    Route::controller(ReviewController::class)->group(function(){
+        Route::get('/all/review', 'AllReview')->name('all.review');   
+        Route::get('/add/review', 'AddReview')->name('add.review');
+        Route::post('/store/review', 'StoreReview')->name('store.review');
+        Route::get('/edit/review/{id}', 'EditReview')->name('edit.review');
+        Route::post('/update/review', 'UpdateReview')->name('update.review');
+        Route::get('/delete/review/{id}', 'DeleteReview')->name('delete.review');
+
+    });
+
 
 });
 
@@ -121,8 +138,15 @@ Route::get('/edit/blog/{id}', [BlogController::class, 'EditBlog'])->name('edit.b
 
 Route::post('/update/blog', [BlogController::class, 'UpdateBlog'])->name('update.blog');
 Route::get('/delete/blog/{id}', [BlogController::class, 'DeleteBlog'])->name('delete.blog');
+Route::post('/update-slider/{id}', [HomeController::class, 'UpdateSliders']);
+Route::post('/update-slider-image/{id}', [HomeController::class, 'UpdateSliderImage']);
 
 
+    Route::get('projects/{project}/previewhome', [ProjectController::class, 'ViewPreviewHome'])->name('projects.previewhome');
+
+Route::get('/pricing', [HomeController::class, 'PricingPage'])->name('pricing');
+   Route::get('/blog', [HomeController::class, 'BlogPage'])->name('blog');
+   Route::get('/blog/details/{id}', [HomeController::class, 'BlogDetailsPage'])->name('blog.details');
 
 
 Route::middleware('auth')->group(function () {

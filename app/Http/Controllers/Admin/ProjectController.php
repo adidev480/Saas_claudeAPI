@@ -155,6 +155,13 @@ class ProjectController extends Controller
         return redirect()->route('all.orders')->with($notification);  
     }
 
+         public function ViewPreviewHome(Project $project){
+
+       $project = $project;
+       return view('admin.backend.projects.preview',compact('project'));
+
+    }
+
 
 
 } 

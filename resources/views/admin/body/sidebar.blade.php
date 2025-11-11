@@ -83,6 +83,21 @@
                 </a>
             </li>
 
+                         <li class="side-nav-item">
+                <a href="{{ route('get.slider') }}" class="side-nav-link">
+                    <span class="menu-icon"><i class="ti ti-mailbox"></i></span>
+                    <span class="menu-text"> Slider Setup </span>
+                </a>
+            </li>
+
+                         <li class="side-nav-item">
+                <a href="{{ route('all.review') }}" class="side-nav-link">
+                    <span class="menu-icon"><i class="ti ti-mailbox"></i></span>
+                    <span class="menu-text"> Review Setup </span>
+                </a>
+            </li>
+
+
 
 
                         <li class="side-nav-item">
